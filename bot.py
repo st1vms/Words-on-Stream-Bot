@@ -11,6 +11,8 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 WOS_INPUT_TEXT_CSSS = 'input[id="inputText"]'
 ROOM_WORD_CSSS = 'div[class^="Room_word"]'
@@ -98,7 +100,9 @@ class WosBot:
     def _type_word(self, word: str) -> bool:
 
         try:
-            inp_text = self._driver.find_element(By.CSS_SELECTOR, WOS_INPUT_TEXT_CSSS)
+            inp_text = WebDriverWait(self._driver, 10).until(
+                EC.visibility_of_element_located((By.CSS_SELECTOR, WOS_INPUT_TEXT_CSSS))
+            )
             inp_text.click()
             sleep(0.1)
             inp_text.clear()
