@@ -28,7 +28,7 @@ def _get_packet(payload: str) -> dict:
     if not payload.startswith("42"):
         return None
 
-    packet = payload.split(",", maxsplit=2)[2].rstrip("]")
+    packet = payload.split(",", maxsplit=2)[-1].rstrip("]")
     return json_loads(packet)
 
 
